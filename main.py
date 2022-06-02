@@ -63,7 +63,8 @@ class Video(Resource):
         db.session.commit()
         return video, 201
 
-    def delete(self, video_id):
+    @staticmethod
+    def delete(video_id):
         # abort_id_not_found(video_id)
         # del videos[video_id]
         return '', 204
