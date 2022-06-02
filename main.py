@@ -21,14 +21,26 @@ class VideoModel(db.Model):
 # db.create_all()
 
 video_put_args = reqparse.RequestParser()
-video_put_args.add_argument("name", type=str, help="Name of the video", location='form', required=True)
-video_put_args.add_argument("views", type=int, help="Views of the video", location='form', required=True)
-video_put_args.add_argument("likes", type=int, help="Likes on the video", location='form', required=True)
+video_put_args.add_argument("name", type=str,
+                            help="Name of the video",
+                            location='form', required=True)
+video_put_args.add_argument("views", type=int,
+                            help="Views of the video",
+                            location='form', required=True)
+video_put_args.add_argument("likes", type=int,
+                            help="Likes on the video",
+                            location='form', required=True)
 
 video_update_args = reqparse.RequestParser()
-video_update_args.add_argument("name", type=str, help="Name of the video", location='form', required=False)
-video_update_args.add_argument("views", type=int, help="Views of the video", location='form', required=False)
-video_update_args.add_argument("likes", type=int, help="Likes on the video", location='form', required=False)
+video_update_args.add_argument("name", type=str,
+                               help="Name of the video",
+                               location='form')
+video_update_args.add_argument("views", type=int,
+                               help="Views of the video",
+                               location='form')
+video_update_args.add_argument("likes", type=int,
+                               help="Likes on the video",
+                               location='form')
 
 
 resource_fields = {
@@ -58,7 +70,8 @@ class Video(Resource):
         if result:
             abort(409, message="Video ID taken...")
 
-        video = VideoModel(id=video_id, name=args['name'], views=args['views'], likes=args['likes'])
+        video = VideoModel(id=video_id, name=args['name'],
+                           views=args['views'], likes=args['likes'])
         db.session.add(video)
         db.session.commit()
         return video, 201
